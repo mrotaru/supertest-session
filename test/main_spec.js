@@ -45,6 +45,17 @@ describe('supertest session', function () {
       .end(done);
   });
 
+  it('should be thennable', function(done) {
+    sess.get('/')
+      .expect(200)
+      .then(function(err, res){
+        sess.get('/').expect(200).end(done);
+      })
+      .catch(function(err){
+        console.log('error: ', err);
+      });
+  });
+
   describe('method sugar', function () {
     var methods = {
       'del'   : 'DELETE',
@@ -91,4 +102,3 @@ describe('Session with a .before hook', function () {
       .end(done);
   });
 });
-
